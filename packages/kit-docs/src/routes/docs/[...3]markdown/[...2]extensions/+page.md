@@ -171,7 +171,7 @@ You should NOT do this.
 
 ## Steps
 
-````md copy
+`````md copy
 :::steps
 
 !!!step title="Step 1"|description="This is a description for step 1."
@@ -191,7 +191,6 @@ const step = 2;
 !!!
 
 :::
-````
 
 :::steps
 
@@ -228,6 +227,7 @@ const step = 1;
 
 :::
 ````
+`````
 
 :::steps
 
@@ -446,10 +446,31 @@ You can import code blocks from files with the following syntax:
 @[code](../foo.js)
 ```
 
-If you want to partially import the file:
+If you want to partially import the file, you can do it via line numbers:
 
 ```md
 @[code{1-10}](../foo.js)
+```
+
+Or via a token that surrounds the desired code snippet:
+
+```md
+@[code{snippet-1}](../foo.js)
+```
+
+```js title=foo.js
+
+willNotShow();
+
+// start of snippet-1
+
+if(...) {
+  doSomething();
+}
+
+// end of snippet-1
+
+thisWontShowEither();
 ```
 
 The code language is inferred from the file extension, however, you can specify it like so:

@@ -1,5 +1,5 @@
 export type ImportCodeTokenMeta = {
   importPath: string;
-  lineStart: number;
+  lineStart: number | string;
   lineEnd?: number;
 };

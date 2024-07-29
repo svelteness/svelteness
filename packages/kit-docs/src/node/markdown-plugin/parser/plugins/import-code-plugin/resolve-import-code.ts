@@ -35,13 +35,24 @@ export const resolveImportCode = (
   // Read file content.
   const fileContent = fs.readFileSync(importFilePath).toString();
 
+  let importCode = fileContent.split('\n');
+
+  if (!Number.isNaN(Number(lineStart))) {
+    lineStart = Number(lineStart);
+    importCode = importCode.slice(lineStart ? lineStart - 1 : lineStart, lineEnd);
+  } else if (typeof lineStart === 'string') {
+    importCode = importCode.slice(
+      1 + importCode.findIndex((line) => line.includes(lineStart as string)),
+    );
+    let end = importCode.findIndex((line) => line.includes(lineStart as string));
+    if (end > -1) {
+      importCode = importCode.slice(0, end - 1);
+    }
+  }
+
   // Resolve partial import.
   return {
     importFilePath,
-    importCode: fileContent
-      .split('\n')
-      .slice(lineStart ? lineStart - 1 : lineStart, lineEnd)
-      .join('\n')
-      .replace(/\n?$/, '\n'),
+    importCode: importCode.join('\n').replace(/\n?$/, '\n'),
   };
 };

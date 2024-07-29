@@ -10,7 +10,7 @@ const MIN_LENGTH = 9;
 const START_CODES = [64, 91, 99, 111, 100, 101];
 
 // Regexp to match the import syntax.
-const SYNTAX_RE = /^@\[code(?:{(?:(\d+)?-(\d+)?)})?(?: ([^\]]+))?\]\(([^)]*)\)/;
+const SYNTAX_RE = /^@\[code(?:{(?:(\d+|[\w-]+)?-?(\d+)?)})?(?: ([^\]]+))?\]\(([^)]*)\)/;
 
 export const createImportCodeBlockRule =
   (): RuleBlock =>
@@ -45,7 +45,7 @@ export const createImportCodeBlockRule =
 
     const meta: ImportCodeTokenMeta = {
       importPath,
-      lineStart: lineStart ? Number.parseInt(lineStart, 10) : 0,
+      lineStart: lineStart ?? 0,
       lineEnd: lineEnd ? Number.parseInt(lineEnd, 10) : undefined,
     };
 
